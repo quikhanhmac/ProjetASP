@@ -26,17 +26,21 @@ namespace GrandHotel_PF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("GrandHotelConnect")));
+            //services.AddDbContext<GrandHotelDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("GrandHotelConnect")));
+
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<GrandHotelDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            var connect = Configuration.GetConnectionString("GrandHotelConnect");
+            services.AddDbContext<GrandHotelDbContext>(opt => opt.UseSqlServer(connect));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
