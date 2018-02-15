@@ -13,10 +13,11 @@ using Microsoft.Extensions.Options;
 using GrandHotel_PF.Models;
 using GrandHotel_PF.Models.AccountViewModels;
 using GrandHotel_PF.Services;
+using GrandHotel_PF.Data;
 
 namespace GrandHotel_PF.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -24,17 +25,20 @@ namespace GrandHotel_PF.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly Data.GrandHotelDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            GrandHotelDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -232,13 +236,44 @@ namespace GrandHotel_PF.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+
+                    //Client NouvClient = new Client();
+                    //user.Email = NouvClient.Email;
+
+                    //return View("Client", "Create");
+                    //return RedirectToAction(returnUrl);
+
+                    return RedirectToAction("Create", "Clients", new {Email=user.Email });
+                    
+                   
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public IActionResult Create(Client NouvClient, string returnUrl)
+        {
+            return View("NouvelleResa");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateP(Client NouvClient, string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                //_context.Add(NouvClient);
+
+                //_context.SaveChanges();
+                return View("NouvelleResa");
+            }
+            //return RedirectToAction(returnUrl);
+            return View("NouvelleResa");
+
         }
 
         [HttpPost]
