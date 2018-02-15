@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using GrandHotel_PF.Models;
 
-namespace GrandHotel_PF.Models
+namespace GrandHotel_PF.Data
 {
-    public partial class GrandHotelDbContext : DbContext
+    public class GrandHotelDbContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<Adresse> Adresse { get; set; }
         public virtual DbSet<Calendrier> Calendrier { get; set; }
@@ -18,17 +22,25 @@ namespace GrandHotel_PF.Models
         public virtual DbSet<TarifChambre> TarifChambre { get; set; }
         public virtual DbSet<Telephone> Telephone { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public GrandHotelDbContext(DbContextOptions<GrandHotelDbContext> options)
+            : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=GrandHotel;Trusted_Connection=True;");
-            }
         }
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
+        //    // Customize the ASP.NET Identity model and override the defaults if needed.
+        //    // For example, you can rename the ASP.NET Identity table names and more.
+        //    // Add your customizations after calling base.OnModelCreating(builder);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+
             modelBuilder.Entity<Adresse>(entity =>
             {
                 entity.HasKey(e => e.IdClient);
@@ -246,6 +258,11 @@ namespace GrandHotel_PF.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Telephone_Client");
             });
+
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
 }
+
