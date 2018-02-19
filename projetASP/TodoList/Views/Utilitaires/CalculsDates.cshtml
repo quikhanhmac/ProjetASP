@@ -1,0 +1,25 @@
+﻿@model TodoList.Models.Calcul
+
+@{
+    ViewData["Title"] = "Calcul de dates";
+}
+
+<h4>Calculs de dates</h4>
+
+<form asp-action="AjouterJours" class="form-inline" >
+    <input asp-for="DateDeb" class="form-control" />
+
+    <select asp-for="Operation" class="form-control">
+        <option value="1">+</option>
+        <option value="-1">-</option>
+    </select>
+
+    <div class="input-group">
+        <input asp-for="NbJours" type="number" class="form-control" />
+        <div class="input-group-addon">jours</div>
+    </div>
+
+    <input type="submit" value="=" class="btn btn-default" />
+    <input value=@ViewBag.DateRes readonly class="form-control" />
+</form>
+ <p><span asp-validation-for="NbJours" class="text-danger"></span></p>

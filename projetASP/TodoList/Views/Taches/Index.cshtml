@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TodoList.Models.Tache>
+
+@{
+    ViewData["Title"] = "Liste des tâches";
+}
+
+@section PanelHeader
+    {
+    <h4>Tâches</h4>
+    @{
+        int nbTachesTerminees = int.Parse(@ViewData["NbTachesTerminees"].ToString());
+        string phrase = nbTachesTerminees > 1 ? "tâches terminées sur" : "tâche terminée sur";
+    }
+    @* Pour accéder au nombre total de tâches, on peut utiliser directement
+        la propriété Model de la vue *@
+
+    <div>@nbTachesTerminees @phrase @Model.Count()</div>
+}
+
+<form asp-controller="Taches" asp-action="Index">
+    <p>
+        <label>Description contient</label>
+        <input type="text" name="texteDesc" value="@ViewBag.texteDesc">
+
+        <Label>Etat</Label>
+        <select name="etat" asp-items="@{new SelectList(ViewBag.Etats,
+                            "Key", "Value", ViewBag.EtatSelec)}"></select>
+        <input type="submit" value="Filtrer" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEcheance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Terminee)
+            </th>
+            <th>
+                <a asp-action="Create">Créer une nouvelle tâche</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateEcheance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Terminee)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editer</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Détails</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

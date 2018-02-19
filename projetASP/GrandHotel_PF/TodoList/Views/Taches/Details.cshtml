@@ -1,0 +1,45 @@
+﻿@model TodoList.Models.Tache
+
+@{
+    ViewData["Title"] = "Détails";
+}
+
+@section PanelHeader
+{
+    <h4>Tache</h4>
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Description)
+        </dt>
+        <dd>
+            <div class="multiline">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEcheance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateEcheance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Terminee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Terminee)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

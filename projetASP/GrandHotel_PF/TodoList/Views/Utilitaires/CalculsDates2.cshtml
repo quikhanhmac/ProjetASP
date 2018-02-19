@@ -1,0 +1,44 @@
+﻿@model TodoList.Models.Calcul
+
+@{
+    ViewData["Title"] = "Calcul de dates";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formCalculDates').on("submit", function (args) {
+            args.preventDefault();
+        });
+        $('#btnSubmit').on("click", function (args) {
+            var form = $("#formCalculDates");
+            var url = form.attr("action");
+            alert(url);
+            $.post(url, form.serialize(), function Success(args) {
+                var resultat = args.erreur ? args.erreur : args;
+                $('#result').text(resultat);
+            }, "JSON");
+        });
+    });
+</script>
+
+<h4>Calculs de dates</h4>
+<div class="row">
+    <form id="formCalculDates" action="Utilitaires/AjouterJours" method="post">
+        <div class="col-sm-3">
+            <input asp-for="DateDeb" class="form-control" />
+        </div>
+        <div class="col-sm-1 text-center">
+            <label class="control-label">+</label>
+        </div>
+        <div class="col-sm-2">
+            <input asp-for="NbJours" class="form-control" />
+            <label asp-for="NbJours" class="control-label"></label>
+        </div>
+        <div class="col-sm-1 text-center">
+            <input id="btnSubmit" type="submit" value="=" class="btn btn-default" />
+        </div>
+        <div class="col-sm-3">
+            <input asp-for="DateRes" readonly class="form-control" />
+        </div>
+    </form>
+    <div id="result"></div>
+</div>
