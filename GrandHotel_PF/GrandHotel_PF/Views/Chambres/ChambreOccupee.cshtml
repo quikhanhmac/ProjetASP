@@ -1,0 +1,101 @@
+﻿@model IEnumerable<GrandHotel_PF.Models.ChambreVM>
+
+@{
+    ViewData["Title"] = "Chambres";
+}
+
+<h2>Liste des chambres occupées</h2>
+
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.Etage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.Bain)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.Douche)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.Wc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.NbLits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chambre.NumTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeTarif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation.IdClient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EtatChambre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.Etage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.Bain)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.Douche)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.Wc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.NbLits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chambre.NumTel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodeTarif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prix)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reservation.IdClient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EtatChambre)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Retour</a>
+</div>

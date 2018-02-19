@@ -1,0 +1,82 @@
+﻿@model IEnumerable<GrandHotel_PF.Models.LigneFacture>
+
+@{
+    ViewData["Title"] = "LigneFactures";
+}
+
+<h2>Details</h2>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdFacture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumLigne)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MontantHt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TauxTva)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TauxReduction)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MontantTotal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdFacture)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumLigne)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantite)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MontantHt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TauxTva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TauxReduction)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MontantTotal)
+                    </td>
+                    @*@{
+                            var lf = new LigneFacture();
+
+                            var MontantTTC = lf.MontantHt * lf.Quantite * (1 + lf.TauxTva) * (1 - lf.TauxReduction);
+                            lf.MontantTtc = MontantTTC;
+                        }*@
+
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.IdFacture">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdFacture">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdFacture">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div>
+    <a asp-action="Index">Retour</a>
+</div>

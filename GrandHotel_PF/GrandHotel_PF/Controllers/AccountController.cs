@@ -13,10 +13,14 @@ using Microsoft.Extensions.Options;
 using GrandHotel_PF.Models;
 using GrandHotel_PF.Models.AccountViewModels;
 using GrandHotel_PF.Services;
+using GrandHotel_PF.Data;
+using GrandHotel_PF.Extensions;
 
 namespace GrandHotel_PF.Controllers
 {
-    [Authorize]
+    // In this controller we only modified the action Register (see below)
+
+    //[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -24,17 +28,20 @@ namespace GrandHotel_PF.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly Data.GrandHotelDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            GrandHotelDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -209,8 +216,12 @@ namespace GrandHotel_PF.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
+            // Here we save the url with which we entered this page so we can come back to that url from a different controller/action
+            HttpContext.Session.SetObjectAsJson("url", returnUrl);
             return View();
         }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -232,13 +243,40 @@ namespace GrandHotel_PF.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+
+
+                    // Instead of redirecting to the url that we were before, we redirect the user to the action "create" of the controller Client.
+                    // This is done because in the exercise it is stated that, after creation of the account the client should be invited to give his coordinates.
+
+                    return RedirectToAction("Create", "Clients", new { Email = user.Email });
+
                 }
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public IActionResult Create(Client NouvClient, string returnUrl)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateP(Client NouvClient, string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                //_context.Add(NouvClient);
+
+                //_context.SaveChanges();
+                return View("NouvelleResa");
+            }
+            //return RedirectToAction(returnUrl);
+            return View("NouvelleResa");
+
         }
 
         [HttpPost]

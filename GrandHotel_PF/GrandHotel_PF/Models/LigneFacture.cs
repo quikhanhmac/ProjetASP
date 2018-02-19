@@ -13,5 +13,6 @@ namespace GrandHotel_PF.Models
         public decimal TauxReduction { get; set; }
 
         public Facture IdFactureNavigation { get; set; }
+        public decimal MontantTotal { get; set; }
     }
 }

@@ -14,8 +14,8 @@ namespace GrandHotel_PF.Models
         public short Numero { get; set; }
         public byte Etage { get; set; }
         public bool Bain { get; set; }
-        public bool? Douche { get; set; }
-        public bool? Wc { get; set; }
+        public bool Douche { get; set; }
+        public bool Wc { get; set; }
         public byte NbLits { get; set; }
         public short? NumTel { get; set; }
 

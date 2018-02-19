@@ -39,6 +39,9 @@ namespace GrandHotel_PF
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             var connect = Configuration.GetConnectionString("GrandHotelConnect");
             services.AddDbContext<GrandHotelDbContext>(opt => opt.UseSqlServer(connect));
         }
@@ -60,6 +63,7 @@ namespace GrandHotel_PF
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

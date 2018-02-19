@@ -1,0 +1,83 @@
+﻿@model IEnumerable<GrandHotel_PF.Models.ChambreVM>
+
+@{
+    ViewData["Title"] = "ValiderDisponibilite";
+}
+
+<h2>ValiderDisponibilite</h2>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+@*<form asp-action="create" method="post">*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.Numero)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.Etage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.NbLits)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.Bain)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.Douche)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chambre.Wc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prix)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrixTotal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.Etage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.NbLits)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.Bain)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.Douche)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chambre.Wc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prix)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrixTotal)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.Numero">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Numero">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Numero">Delete</a>*@
+                        <a asp-action="Create" asp-controller="Reservations" asp-route-Numero="@item.Chambre.Numero">Réserver</a>
+                        @*<input type="submit" value*@
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+@*</form>*@

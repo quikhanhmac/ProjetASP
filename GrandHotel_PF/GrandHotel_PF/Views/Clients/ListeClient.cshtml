@@ -1,0 +1,80 @@
+﻿
+@model IEnumerable<GrandHotel_PF.Models.ClientVM>
+
+@{
+    ViewData["Title"] = "Client";
+}
+
+<h2>Liste des clients par ordre alphabétique</h2>
+
+<br />
+<form asp-controller="Client" asp-action="ListeClient" method="get">
+    <ul class="list-inline">
+        @{
+            for (char id = 'A'; id <= 'Z'; id++)
+            {
+                <li><a asp-route-id="@id">@id</a></li>
+            }
+        }
+    </ul>
+</form>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Civilite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NbReservations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationEnCours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResEnCours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Civilite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NbReservations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationEnCours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResEnCours)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

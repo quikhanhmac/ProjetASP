@@ -1,0 +1,86 @@
+﻿@model GrandHotel_PF.Models.Client
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Données personnelles Client</h1>
+
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="CreatePost">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <h5>
+                        Civilité
+                        <label asp-for="Civilite" class="control-label">
+                            <select type="submit" asp-for="Civilite" class="form-control">
+                                <option value=""></option>
+                                <option value="M.">M.</option>
+                                <option value="Mme.">Mme.</option>
+                                <option value="Mlle.">Mlle.</option>
+                            </select>
+                        </label>
+                    </h5>
+                    <span asp-validation-for="Civilite" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label"></label>
+                    <input asp-for="Nom" class="form-control" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Prenom" class="control-label"></label>
+                    <input asp-for="Prenom" class="form-control" />
+                    <span asp-validation-for="Prenom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adresse" class="control-label"></label>
+                    <div class="col-md-offset-4">
+                        <h5><label asp-for="Adresse.Rue" class="control-label"></label></h5>
+                        <input asp-for="Adresse.Rue" class="form-control" />
+                        <h5><label asp-for="Adresse.Complement" class="control-label"></label></h5>
+                        <input asp-for="Adresse.Complement" class="form-control" />
+                        <h5><label asp-for="Adresse.CodePostal" class="control-label"></label></h5>
+                        <input asp-for="Adresse.CodePostal" class="form-control" />
+                        <h5><label asp-for="Adresse.Ville" class="control-label"></label></h5>
+                        <input asp-for="Adresse.Ville" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Adresse" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CarteFidelite" class="control-label">
+                        <select type="submit" asp-for="CarteFidelite" class="form-control">
+                            <option value=""></option>
+                            <option value="true">Oui</option>
+                            <option value="false">Non</option>
+                        </select>
+                    </label> @Html.DisplayNameFor(model => model.CarteFidelite)
+                </div>
+                <div class="form-group">
+                    <label asp-for="Societe" class="control-label"></label>
+                    <input asp-for="Societe" class="form-control" />
+                    <span asp-validation-for="Societe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Enregistrer" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
